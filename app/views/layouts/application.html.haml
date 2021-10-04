@@ -1,0 +1,28 @@
+!!! 5
+%html
+  %head
+    %title Rottenpotatoes
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+
+    - if flash[:notice]
+      #notice.message= flash[:notice]
+    - elsif flash[:warning]
+      #warning.message= flash[:warning]
+
+    #login
+      - if logged_in?
+        = "#{@current_moviegoer.full_name} logged in! "
+        = link_to 'Logout', logout_path, :method => :post
+      - else
+        = 'Not Logged in!'
+        = link_to 'Login here', login_path
+
+    #main
+      = yield
+  </body>
+</html>
